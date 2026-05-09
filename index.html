@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Our Elite Community | Discord</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+    <title>ALIM'S GVTX | Premium Infrastructure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050505;
-            --accent-white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --shadow-3d: 0 30px 60px rgba(0,0,0,0.9);
-            --border-glow: rgba(255, 255, 255, 0.15);
-            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            --primary-bg: #050505;
+            --secondary-bg: #0a0a0a;
+            --accent-color: #ffffff;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --error: #ff3333;
+            --success: #00ff88;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .light-theme {
+            --primary-bg: #f0f2f5;
+            --secondary-bg: #ffffff;
+            --accent-color: #000000;
+            --text-main: #111111;
+            --text-dim: #555555;
+            --glass: rgba(0, 0, 0, 0.05);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
         * {
@@ -22,129 +38,481 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        body, html {
-            min-height: 100%;
-            background-color: var(--bg-color);
-            color: var(--accent-white);
-            overflow-x: hidden; /* Gorizontal skroll bo'lmasligi uchun */
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            transition: var(--transition);
+            overflow-x: hidden;
+            min-height: 200vh;
         }
 
-        /* Animated Grid Background */
-        body::after {
-            content: "";
+        .bg-grid {
             position: fixed;
             top: 0; left: 0;
-            width: 200%; height: 200%;
+            width: 100%; height: 100%;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+                linear-gradient(var(--glass-border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
+            background-size: 60px 60px;
+            perspective: 1000px;
             z-index: -1;
-            animation: moveGrid 20s linear infinite;
+            opacity: 0.5;
         }
 
-        @keyframes moveGrid {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-40px, -40px); }
+        .bg-grid-inner {
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, transparent, var(--primary-bg));
+            transform: rotateX(45deg);
+            animation: gridMove 20s linear infinite;
         }
 
-        .container {
-            position: relative;
-            z-index: 10;
+        @keyframes gridMove {
+            0% { transform: rotateX(45deg) translateY(0); }
+            100% { transform: rotateX(45deg) translateY(60px); }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            height: 80px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            min-height: 100vh;
-            width: 100%;
-            padding: 40px 20px;
-            text-align: center;
+            padding: 0 5%;
+            backdrop-filter: blur(20px);
+            background: var(--glass);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
         }
 
-        .header h1 {
-            font-size: clamp(1.5rem, 10vw, 3rem);
-            font-weight: 900;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            background: linear-gradient(to bottom, #fff 30%, #333 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
-        }
+        .nav-actions { display: flex; gap: 15px; }
 
-        .image-box {
-            width: 100%;
-            max-width: 500px; /* Mobil uchun kichraytirildi */
-            aspect-ratio: 16/9;
-            background: var(--glass-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow-3d);
-            margin-bottom: 30px;
-        }
-
-        .image-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .slogan-box p {
-            font-size: 1rem;
-            color: #aaa;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            max-width: 600px;
-        }
-
-        .join-btn {
-            display: inline-block;
-            padding: 18px 40px;
-            background: #ffffff;
-            color: #000;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+        .btn-nav {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
             transition: var(--transition);
         }
 
-        .join-btn:active {
-            transform: scale(0.95);
+        .btn-nav:hover {
+            background: var(--text-main);
+            color: var(--primary-bg);
+            transform: translateY(-2px);
         }
 
-        /* Mobil uchun animatsiyani sekinlashtirish */
-        .container {
-            animation: subtleFloat 6s ease-in-out infinite;
+        .settings-panel {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 350px; height: 100%;
+            background: var(--secondary-bg);
+            border-left: 1px solid var(--glass-border);
+            z-index: 2000;
+            padding: 40px 30px;
+            transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+            box-shadow: -20px 0 50px rgba(0,0,0,0.5);
         }
 
-        @keyframes subtleFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .settings-panel.open { right: 0; }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .setting-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .copy-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(120, 120, 120, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .btn-copy {
+            background: var(--text-main);
+            color: var(--primary-bg);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 900;
+        }
+
+        .main-content {
+            padding-top: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 30px;
+            background: linear-gradient(to bottom, var(--text-main), var(--text-dim));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-join-huge {
+            padding: 25px 60px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+            text-transform: uppercase;
+            margin-bottom: 60px;
+        }
+
+        .image-container {
+            width: 90%;
+            max-width: 1000px;
+            height: 500px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            overflow: hidden;
+            transform: perspective(1000px) rotateX(10deg);
+            box-shadow: var(--shadow);
+            margin-bottom: 100px;
+        }
+
+        .image-container img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .reg-wrapper {
+            width: 100%;
+            max-width: 550px;
+            background: var(--secondary-bg);
+            padding: 50px;
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            margin-bottom: 150px;
+        }
+
+        /* QATORLAR ORASIDAGI MASOFA TO'G'IRLANDI */
+        .input-block {
+            margin-bottom: 30px; 
+        }
+
+        .input-block label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .input-block input, .input-block select {
+            width: 100%;
+            padding: 15px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        select option {
+            background-color: var(--secondary-bg);
+            color: var(--text-main);
+        }
+
+        .input-error {
+            border: 1px solid var(--error) !important;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 20px;
+            background: transparent;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            font-weight: 800;
+            text-transform: uppercase;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px; /* Qo'shimcha xavfsizlik masofasi */
+        }
+
+        .btn-submit:hover {
+            background: var(--text-main);
+            color: var(--primary-bg);
+        }
+
+        #statusBox {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .success-style { background: rgba(0,255,136,0.1); border: 1px solid var(--success); color: var(--success); }
+
+        .footer {
+            padding: 50px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>ALIM'S GVTX</h1>
+
+    <div class="bg-grid"><div class="bg-grid-inner"></div></div>
+
+    <nav class="navbar">
+        <div class="logo"><strong>ALIM'S GVTX</strong></div>
+        <div class="nav-actions">
+            <button class="btn-nav" id="btn-lang" onclick="toggleLang()">RU</button>
+            <button class="btn-nav" onclick="toggleSettings()">⚙️</button>
+        </div>
+    </nav>
+
+    <div class="settings-panel" id="settingsMenu">
+        <div class="panel-header" onclick="toggleSettings()">
+            <span id="txt-back">← Back</span>
+        </div>
+        
+        <div class="setting-card">
+            <h4 id="txt-theme-title">Interface</h4>
+            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px;" id="txt-theme-desc">Switch between light and dark modes.</p>
+            <button class="btn-submit" onclick="changeTheme()" id="txt-theme-btn">Change Theme</button>
         </div>
 
-        <div class="image-box">
+        <div class="setting-card">
+            <h4 id="txt-ai-title">Neural Network</h4>
+            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px;" id="txt-ai-desc">Redirect to AI Assistant (ChatGPT).</p>
+            <button class="btn-submit" onclick="window.open('https://chatgpt.com', '_blank')">AI ASSISTANT</button>
+        </div>
+
+        <div class="setting-card">
+            <h4 id="txt-support-title">Support</h4>
+            <p style="font-size: 0.8rem; color: var(--text-dim);" id="txt-support-desc">If you have problems, contact us:</p>
+            <div class="copy-box">
+                <span id="supportEmail">cekpetboy@gmail.com</span>
+                <button class="btn-copy" onclick="copyEmail()" id="txt-copy">COPY</button>
+            </div>
+            <button class="btn-submit" style="margin-top: 15px;" onclick="window.location.href='mailto:cekpetboy@gmail.com'" id="txt-write">Write Email</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1 class="hero-title">ALIM'S<br>GVTX ELITE</h1>
+        
+        <button class="btn-join-huge" id="btn-join" onclick="handleJoinClick()">Join Server</button>
+
+        <div class="image-container">
             <img src="allo.png" alt="Showcase">
         </div>
 
-        <div class="slogan-box">
-            <p>Step into the arena! Join our elite server and immerse yourself in high-stakes events. Rise through the ranks to become an active legend.</p>
-            <p style="color: #666; font-size: 0.7rem; letter-spacing: 2px;">EXCLUSIVE INSIGHTS • NO LIMITS</p>
-        </div>
+        <div class="reg-wrapper" id="regSection">
+            <h2 class="form-title" id="txt-reg-title" style="text-align: center; margin-bottom: 30px;">Access Terminal</h2>
+            
+            <div class="input-block">
+                <label id="lbl-name">Full Name (Format: First Last)</label>
+                <input type="text" id="inpName" placeholder="Alimov Alim">
+            </div>
 
-        <div class="btn-container">
-            <a href="https://discord.gg/CJYXEBp55" class="join-btn">Join Server</a>
+            <div class="input-block">
+                <label id="lbl-email">Secure Email</label>
+                <input type="email" id="inpEmail" placeholder="user@domain.com">
+            </div>
+
+            <div class="input-block">
+                <label id="lbl-date">Birth Date</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                    <select id="selDay"></select>
+                    <select id="selMonth"></select>
+                    <select id="selYear"></select>
+                </div>
+            </div>
+
+            <button class="btn-submit" id="btn-complete" onclick="validateAndRegister()">Complete Registration</button>
+            <div id="statusBox"></div>
         </div>
     </div>
+
+    <footer class="footer">
+        &copy; 2026 ALIM'S GVTX. ALL RIGHTS RESERVED.
+    </footer>
+
+    <script>
+        let isRegistered = localStorage.getItem('isAuth') === 'true';
+        let currentLang = 'EN';
+
+        const dict = {
+            EN: {
+                lang: 'RU', back: '← Back', themeTitle: 'Interface', themeDesc: 'Switch light/dark modes.',
+                themeBtn: 'Toggle Theme', aiTitle: 'Neural Network', aiDesc: 'Access ChatGPT assistant.',
+                supportTitle: 'Support Service', supportDesc: 'If you find an issue, contact us at:',
+                copy: 'COPY', write: 'Write Email', join: 'Join Server', regTitle: 'Access Terminal',
+                lblName: 'Full Name (Format: First Last)', lblEmail: 'Secure Email', lblDate: 'Birth Date',
+                btnComplete: 'Complete Registration', errorName: 'Please enter valid Full Name (Example: Alim Alimov)',
+                errorEmail: 'Please enter a valid email address!', success: 'Access Granted! You can now join.',
+                already: 'This email is already in our database!'
+            },
+            RU: {
+                lang: 'EN', back: '← Назад', themeTitle: 'Интерфейс', themeDesc: 'Переключение темной/светлой темы.',
+                themeBtn: 'Сменить тему', aiTitle: 'Нейросеть', aiDesc: 'Перейти к помощнику ChatGPT.',
+                supportTitle: 'Служба поддержки', supportDesc: 'Если возникла проблема, напишите нам:',
+                copy: 'КОПИЯ', write: 'Написать письмо', join: 'Войти в сервер', regTitle: 'Терминал Доступа',
+                lblName: 'Имя и Фамилия (Пример: Alim Alimov)', lblEmail: 'Электронная почта', lblDate: 'Дата рождения',
+                btnComplete: 'Завершить регистрацию', errorName: 'Введите имя корректно (Пример: Alim Alimov)',
+                errorEmail: 'Введите корректный адрес почты!', success: 'Доступ разрешен! Теперь можете войти.',
+                already: 'Этот Email уже зарегистрирован!'
+            }
+        };
+
+        const d = document.getElementById('selDay');
+        const m = document.getElementById('selMonth');
+        const y = document.getElementById('selYear');
+        for(let i=1; i<=31; i++) d.innerHTML += `<option style="color: inherit;">${i}</option>`;
+        for(let i=1; i<=12; i++) m.innerHTML += `<option style="color: inherit;">${i}</option>`;
+        for(let i=2006; i<=2011; i++) y.innerHTML += `<option style="color: inherit;">${i}</option>`;
+
+        function toggleSettings() {
+            document.getElementById('settingsMenu').classList.toggle('open');
+        }
+
+        function changeTheme() {
+            document.body.classList.toggle('light-theme');
+        }
+
+        function toggleLang() {
+            currentLang = currentLang === 'EN' ? 'RU' : 'EN';
+            const t = dict[currentLang];
+            document.getElementById('btn-lang').innerText = t.lang;
+            document.getElementById('txt-back').innerText = t.back;
+            document.getElementById('txt-theme-title').innerText = t.themeTitle;
+            document.getElementById('txt-theme-desc').innerText = t.themeDesc;
+            document.getElementById('txt-theme-btn').innerText = t.themeBtn;
+            document.getElementById('txt-ai-title').innerText = t.aiTitle;
+            document.getElementById('txt-ai-desc').innerText = t.aiDesc;
+            document.getElementById('txt-support-title').innerText = t.supportTitle;
+            document.getElementById('txt-support-desc').innerText = t.supportDesc;
+            document.getElementById('txt-copy').innerText = t.copy;
+            document.getElementById('txt-write').innerText = t.write;
+            document.getElementById('btn-join').innerText = t.join;
+            document.getElementById('txt-reg-title').innerText = t.regTitle;
+            document.getElementById('lbl-name').innerText = t.lblName;
+            document.getElementById('lbl-email').innerText = t.lblEmail;
+            document.getElementById('lbl-date').innerText = t.lblDate;
+            document.getElementById('btn-complete').innerText = t.btnComplete;
+        }
+
+        function copyEmail() {
+            const email = document.getElementById('supportEmail').innerText;
+            navigator.clipboard.writeText(email);
+            const btn = document.getElementById('txt-copy');
+            const original = btn.innerText;
+            btn.innerText = 'DONE!';
+            setTimeout(() => btn.innerText = original, 2000);
+        }
+
+        function handleJoinClick() {
+            if (localStorage.getItem('isAuth') === 'true') {
+                window.location.href = "https://discord.gg/CJYXEBp55";
+            } else {
+                document.getElementById('regSection').scrollIntoView({behavior: 'smooth'});
+                alert(currentLang === 'EN' ? "Please register correctly first!" : "Сначала пройдите правильную регистрацию!");
+            }
+        }
+
+        function validateAndRegister() {
+            const name = document.getElementById('inpName');
+            const email = document.getElementById('inpEmail');
+            const box = document.getElementById('statusBox');
+            const t = dict[currentLang];
+
+            const nameRegex = /^[A-Z][a-z]+ [A-Z][a-z]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            let valid = true;
+
+            if(!nameRegex.test(name.value)) {
+                name.classList.add('input-error');
+                valid = false;
+            } else {
+                name.classList.remove('input-error');
+            }
+
+            if(!emailRegex.test(email.value)) {
+                email.classList.add('input-error');
+                valid = false;
+            } else {
+                email.classList.remove('input-error');
+            }
+
+            if(!valid) {
+                box.style.display = 'block';
+                box.style.background = 'rgba(255,0,0,0.1)';
+                box.style.border = '1px solid var(--error)';
+                box.style.color = 'var(--error)';
+                box.innerText = !nameRegex.test(name.value) ? t.errorName : t.errorEmail;
+                return;
+            }
+
+            let database = JSON.parse(localStorage.getItem('user_db') || "[]");
+            if(database.includes(email.value)) {
+                alert(t.already);
+                return;
+            }
+
+            database.push(email.value);
+            localStorage.setItem('user_db', JSON.stringify(database));
+            localStorage.setItem('isAuth', 'true');
+            
+            box.className = 'success-style';
+            box.style.display = 'block';
+            box.innerText = t.success;
+            document.getElementById('btn-complete').style.display = 'none';
+            document.getElementById('btn-join').style.background = 'var(--success)';
+        }
+    </script>
 </body>
 </html>
