@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Elite Community | Discord</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --accent-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --shadow-3d: 0 30px 60px rgba(0,0,0,0.9);
+            --border-glow: rgba(255, 255, 255, 0.15);
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body, html {
+            min-height: 100%;
+            background-color: var(--bg-color);
+            color: var(--accent-white);
+            overflow-x: hidden; /* Gorizontal skroll bo'lmasligi uchun */
+        }
+
+        /* Animated Grid Background */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 200%; height: 200%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-40px, -40px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: clamp(1.5rem, 10vw, 3rem);
+            font-weight: 900;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #fff 30%, #333 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+
+        .image-box {
+            width: 100%;
+            max-width: 500px; /* Mobil uchun kichraytirildi */
+            aspect-ratio: 16/9;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-3d);
+            margin-bottom: 30px;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slogan-box p {
+            font-size: 1rem;
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+
+        .join-btn {
+            display: inline-block;
+            padding: 18px 40px;
+            background: #ffffff;
+            color: #000;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+            transition: var(--transition);
+        }
+
+        .join-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Mobil uchun animatsiyani sekinlashtirish */
+        .container {
+            animation: subtleFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ALIM'S GVTX</h1>
+        </div>
+
+        <div class="image-box">
+            <img src="allo.png" alt="Showcase">
+        </div>
+
+        <div class="slogan-box">
+            <p>Step into the arena! Join our elite server and immerse yourself in high-stakes events. Rise through the ranks to become an active legend.</p>
+            <p style="color: #666; font-size: 0.7rem; letter-spacing: 2px;">EXCLUSIVE INSIGHTS • NO LIMITS</p>
+        </div>
+
+        <div class="btn-container">
+            <a href="https://discord.gg/CJYXEBp55" class="join-btn">Join Server</a>
+        </div>
+    </div>
+</body>
+</html>
