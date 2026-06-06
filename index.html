@@ -1,531 +1,1219 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALIM'S GVTX | Premium Infrastructure</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-bg: #050505;
-            --secondary-bg: #0a0a0a;
-            --accent-color: #ffffff;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --error: #ff3333;
-            --success: #00ff88;
-            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow: 0 20px 50px rgba(0,0,0,0.8);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GVTX ELITE FORC X</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a14;--bg2:#111122;--bg3:#16162a;--card:#1a1a2e;--card2:#1e1e35;
+  --accent:#6c63ff;--accent2:#a78bfa;--gold:#f59e0b;--silver:#94a3b8;--bronze:#cd7c3e;
+  --green:#22c55e;--red:#ef4444;--blue:#38bdf8;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;
+  --border:rgba(108,99,255,0.18);--border2:rgba(255,255,255,0.08);
+  --shadow:0 8px 32px rgba(108,99,255,0.15);
+  --glass:rgba(26,26,46,0.7);
+  --radius:16px;--radius2:12px;--radius3:8px;
+}
+[data-theme="light"]{
+  --bg:#f0f2ff;--bg2:#e8eaf6;--bg3:#dde0f5;--card:#fff;--card2:#f5f5ff;
+  --text:#1a1a2e;--text2:#3d3d6e;--text3:#6b6b9a;
+  --border:rgba(108,99,255,0.2);--border2:rgba(108,99,255,0.1);
+  --glass:rgba(255,255,255,0.8);--shadow:0 8px 32px rgba(108,99,255,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);color:var(--text);
+  min-height:100vh;overflow-x:hidden;
+  transition:background 0.4s,color 0.4s;
+}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
 
-        .light-theme {
-            --primary-bg: #f0f2f5;
-            --secondary-bg: #ffffff;
-            --accent-color: #000000;
-            --text-main: #111111;
-            --text-dim: #555555;
-            --glass: rgba(0, 0, 0, 0.05);
-            --glass-border: rgba(0, 0, 0, 0.1);
-            --shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+/* ── TOP BAR ── */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px;
+  background:rgba(10,10,20,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  gap:10px;flex-wrap:wrap;
+}
+[data-theme="light"] #topbar{background:rgba(240,242,255,0.9);}
+.top-logo{
+  font-size:clamp(13px,2.5vw,18px);font-weight:800;
+  background:linear-gradient(135deg,#6c63ff,#a78bfa,#f59e0b);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  white-space:nowrap;
+}
+.top-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.lang-btn{
+  padding:5px 10px;border-radius:20px;border:1px solid var(--border);
+  background:var(--card);color:var(--text2);font-family:'Poppins',sans-serif;
+  font-size:11px;font-weight:600;cursor:pointer;transition:all 0.3s;
+}
+.lang-btn.active,.lang-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+.theme-btn{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+  background:var(--card);color:var(--text);font-size:15px;
+  cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;
+}
+.theme-btn:hover{background:var(--accent);color:#fff;}
+.settings-btn{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+  background:var(--card);color:var(--text2);font-size:16px;
+  cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;
+}
+.settings-btn:hover{background:var(--accent);color:#fff;}
 
-        body {
-            background-color: var(--primary-bg);
-            color: var(--text-main);
-            transition: var(--transition);
-            overflow-x: hidden;
-            min-height: 200vh;
-        }
+/* ── SETTINGS MODAL ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:5000;
+  background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:28px;max-width:420px;width:100%;
+  box-shadow:var(--shadow);animation:popIn 0.3s ease;
+}
+@keyframes popIn{from{opacity:0;transform:scale(0.85)translateY(20px);}to{opacity:1;transform:scale(1)translateY(0);}}
+.modal-title{font-size:18px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.modal-close{
+  margin-left:auto;width:28px;height:28px;border-radius:50%;border:1px solid var(--border2);
+  background:transparent;color:var(--text2);cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.settings-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;border-bottom:1px solid var(--border2);
+}
+.settings-row:last-child{border:none;}
+.settings-label{font-size:13px;font-weight:600;color:var(--text2);}
+.settings-action{
+  padding:7px 14px;border-radius:20px;border:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-block;
+}
+.settings-action:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(108,99,255,0.4);}
+.theme-toggle-row{display:flex;gap:8px;}
+.theme-option{
+  padding:6px 12px;border-radius:20px;border:1px solid var(--border);
+  background:var(--card2);color:var(--text2);font-size:11px;font-weight:600;
+  cursor:pointer;transition:all 0.3s;
+}
+.theme-option.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(var(--glass-border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
-            background-size: 60px 60px;
-            perspective: 1000px;
-            z-index: -1;
-            opacity: 0.5;
-        }
+/* Discord button */
+.discord-btn{
+  padding:7px 14px;border-radius:20px;border:none;
+  background:#5865F2;
+  color:#fff;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+}
+.discord-btn:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(88,101,242,0.5);background:#4752c4;}
 
-        .bg-grid-inner {
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, transparent, var(--primary-bg));
-            transform: rotateX(45deg);
-            animation: gridMove 20s linear infinite;
-        }
+/* ── REGISTER MODAL ── */
+#regModal .modal-box{
+  max-width:500px;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,rgba(20,20,45,0.97),rgba(15,15,35,0.98));
+  border:1px solid rgba(108,99,255,0.3);
+}
+.reg-floating-circles{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.reg-circle{
+  position:absolute;border-radius:50%;
+  background:linear-gradient(135deg,rgba(108,99,255,0.15),rgba(167,139,250,0.1));
+  border:1px solid rgba(108,99,255,0.2);
+  animation:floatCircle 6s ease-in-out infinite;
+}
+.reg-circle:nth-child(1){width:60px;height:60px;top:-20px;left:-20px;animation-delay:0s;}
+.reg-circle:nth-child(2){width:40px;height:40px;top:30px;right:20px;animation-delay:1s;}
+.reg-circle:nth-child(3){width:80px;height:80px;bottom:-30px;left:30px;animation-delay:2s;opacity:0.6;}
+.reg-circle:nth-child(4){width:30px;height:30px;bottom:60px;right:40px;animation-delay:0.5s;}
+.reg-circle:nth-child(5){width:50px;height:50px;top:50%;left:10px;animation-delay:1.5s;opacity:0.4;}
+@keyframes floatCircle{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  33%{transform:translateY(-12px) rotate(5deg);}
+  66%{transform:translateY(8px) rotate(-3deg);}
+}
+.reg-content{position:relative;z-index:1;}
+.reg-logo{text-align:center;margin-bottom:20px;}
+.reg-logo-circle{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 10px;
+  background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 30px rgba(255,255,255,0.2);
+  overflow:hidden;
+}
+.reg-logo-circle img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;
+}
+.reg-title{font-size:22px;font-weight:800;text-align:center;margin-bottom:4px;color:#fff;}
+.reg-sub{font-size:12px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:20px;}
+.form-group{margin-bottom:14px;position:relative;}
+.form-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:5px;display:block;}
+.form-input{
+  width:100%;padding:11px 14px;border-radius:var(--radius3);
+  border:1.5px solid rgba(108,99,255,0.25);background:rgba(255,255,255,0.06);
+  color:#fff;font-family:'Poppins',sans-serif;font-size:13px;
+  transition:all 0.3s;outline:none;
+}
+.form-input::placeholder{color:rgba(255,255,255,0.25);}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,0.15);}
+.form-input.error{border-color:var(--red)!important;box-shadow:0 0 0 3px rgba(239,68,68,0.12)!important;}
+.error-msg{color:var(--red);font-size:11px;font-weight:600;margin-top:4px;display:none;}
+.error-msg.show{display:block;}
+.reg-btn{
+  width:100%;padding:13px;border-radius:var(--radius2);border:none;
+  background:linear-gradient(135deg,#6c63ff,#a78bfa);
+  color:#fff;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all 0.3s;margin-top:4px;
+  display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;
+}
+.reg-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(108,99,255,0.5);}
+.reg-btn:disabled{opacity:0.7;cursor:not-allowed;transform:none;}
+.form-note{font-size:10px;color:rgba(255,255,255,0.3);text-align:center;margin-top:10px;}
 
-        @keyframes gridMove {
-            0% { transform: rotateX(45deg) translateY(0); }
-            100% { transform: rotateX(45deg) translateY(60px); }
-        }
+/* Dots loader */
+.dots-loader{display:flex;gap:5px;align-items:center;}
+.dots-loader span{
+  width:7px;height:7px;border-radius:50%;background:#fff;
+  animation:dotBounce 1.2s infinite ease-in-out;
+}
+.dots-loader span:nth-child(2){animation-delay:0.2s;}
+.dots-loader span:nth-child(3){animation-delay:0.4s;}
+@keyframes dotBounce{0%,80%,100%{transform:scale(0.7);opacity:0.5;}40%{transform:scale(1);opacity:1;}}
 
-        .navbar {
-            position: fixed;
-            top: 0; width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            backdrop-filter: blur(20px);
-            background: var(--glass);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-        }
+/* Success state */
+.reg-success{
+  text-align:center;padding:20px 0;
+  animation:popIn 0.4s ease;
+}
+.reg-success-icon{font-size:48px;margin-bottom:12px;}
+.reg-success-title{font-size:18px;font-weight:800;color:#22c55e;margin-bottom:6px;}
+.reg-success-sub{font-size:13px;color:rgba(255,255,255,0.5);}
 
-        .nav-actions { display: flex; gap: 15px; }
+/* ── MAIN CONTENT ── */
+main{position:relative;z-index:1;padding-top:70px;}
 
-        .btn-nav {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-        }
+/* ── HERO ── */
+.hero{
+  text-align:center;padding:clamp(40px,8vw,80px) 20px clamp(30px,5vw,50px);
+  position:relative;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 16px;border-radius:100px;
+  background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.3);
+  font-size:11px;font-weight:600;color:var(--accent2);margin-bottom:16px;
+}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.7);}}
+.hero-title{
+  font-size:clamp(28px,6vw,60px);font-weight:900;line-height:1.1;
+  background:linear-gradient(135deg,#fff 0%,#a78bfa 50%,#6c63ff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:10px;
+}
+[data-theme="light"] .hero-title{background:linear-gradient(135deg,#1a1a2e 0%,#6c63ff 50%,#a78bfa 100%);-webkit-background-clip:text;background-clip:text;}
+.hero-sub{font-size:clamp(13px,2vw,16px);color:var(--text2);max-width:600px;margin:0 auto 28px;line-height:1.7;}
+.hero-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-main{
+  padding:12px 28px;border-radius:100px;border:none;
+  background:linear-gradient(135deg,#6c63ff,#a78bfa);
+  color:#fff;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-block;
+}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(108,99,255,0.5);}
+.btn-outline{
+  padding:11px 24px;border-radius:100px;
+  border:2px solid var(--accent);background:transparent;
+  color:var(--accent);font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-block;
+}
+.btn-outline:hover{background:var(--accent);color:#fff;transform:translateY(-3px);}
 
-        .btn-nav:hover {
-            background: var(--text-main);
-            color: var(--primary-bg);
-            transform: translateY(-2px);
-        }
+/* ── SECTIONS ── */
+.section{padding:clamp(30px,5vw,60px) clamp(16px,4vw,40px);max-width:1100px;margin:0 auto;}
+.section-header{text-align:center;margin-bottom:clamp(24px,4vw,40px);}
+.section-tag{
+  display:inline-block;padding:4px 14px;border-radius:100px;
+  background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.25);
+  font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:0.1em;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.section-title{font-size:clamp(22px,4vw,36px);font-weight:800;margin-bottom:8px;line-height:1.2;}
+.section-desc{color:var(--text2);font-size:clamp(13px,1.8vw,15px);max-width:550px;margin:0 auto;line-height:1.7;}
 
-        .settings-panel {
-            position: fixed;
-            top: 0; right: -400px;
-            width: 350px; height: 100%;
-            background: var(--secondary-bg);
-            border-left: 1px solid var(--glass-border);
-            z-index: 2000;
-            padding: 40px 30px;
-            transition: 0.6s cubic-bezier(0.85, 0, 0.15, 1);
-            box-shadow: -20px 0 50px rgba(0,0,0,0.5);
-        }
+/* ── GLASS CARD ── */
+.glass-card{
+  background:var(--glass);backdrop-filter:blur(20px);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:clamp(16px,3vw,28px);
+  transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.glass-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(108,99,255,0.2);}
 
-        .settings-panel.open { right: 0; }
+/* ── LENGBOARD SECTION ── */
+.leng-notice{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 18px;border-radius:var(--radius2);
+  background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);
+  margin-bottom:24px;font-size:13px;color:var(--gold);font-weight:600;cursor:pointer;
+  text-decoration:none;transition:all 0.3s;
+}
+.leng-notice:hover{background:rgba(245,158,11,0.18);}
+.leng-notice span{font-size:18px;}
+.leng-img-wrap{
+  border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);
+  background:linear-gradient(135deg,#0f0f20,#1a1a3e,#0f1a30);
+  aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;
+  position:relative;cursor:pointer;text-decoration:none;
+  transition:all 0.4s;
+}
+.leng-img-wrap:hover{transform:scale(1.02);box-shadow:0 20px 50px rgba(108,99,255,0.3);}
+.leng-visual{text-align:center;padding:30px 20px;}
+.leng-trophy{font-size:clamp(40px,8vw,80px);animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.leng-game-title{
+  font-size:clamp(20px,4vw,36px);font-weight:900;
+  background:linear-gradient(135deg,#f59e0b,#fbbf24,#fde68a);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin:12px 0 6px;
+}
+.leng-sub{color:var(--text2);font-size:13px;margin-bottom:16px;}
+.top15-label{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 18px;border-radius:100px;
+  background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(251,191,36,0.1));
+  border:1px solid rgba(245,158,11,0.4);
+  font-size:12px;font-weight:700;color:var(--gold);
+}
+.leng-open-btn{
+  display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  padding:12px 28px;border-radius:100px;
+  background:linear-gradient(135deg,#f59e0b,#fbbf24);
+  color:#1a1a0a;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;text-decoration:none;transition:all 0.3s;border:none;
+}
+.leng-open-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(245,158,11,0.5);}
 
-        .panel-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+/* ── INFO GRID ── */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.info-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2);}
+.info-row:last-child{border:none;}
+.info-icon{font-size:16px;flex-shrink:0;margin-top:2px;}
+.info-text{font-size:13px;color:var(--text2);line-height:1.6;}
+.info-text strong{color:var(--text);font-weight:600;}
+.rewards-list{display:flex;flex-direction:column;gap:10px;}
+.reward-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;border-radius:var(--radius2);
+  background:var(--bg2);border:1px solid var(--border2);
+  transition:all 0.3s;
+}
+.reward-item:hover{border-color:var(--accent);transform:translateX(4px);}
+.reward-icon{font-size:20px;flex-shrink:0;}
+.reward-text{font-size:13px;color:var(--text2);}
+.reward-text strong{color:var(--text);font-weight:700;display:block;font-size:14px;}
+.top3-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:16px;}
+.top3-card{
+  text-align:center;padding:20px 12px;border-radius:var(--radius);
+  background:var(--bg2);border:1px solid var(--border2);transition:all 0.4s;
+}
+.top3-card:nth-child(1){border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.05);}
+.top3-card:nth-child(2){border-color:rgba(148,163,184,0.4);background:rgba(148,163,184,0.05);}
+.top3-card:nth-child(3){border-color:rgba(205,124,62,0.4);background:rgba(205,124,62,0.05);}
+.top3-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.2);}
+.top3-medal{font-size:28px;display:block;margin-bottom:6px;}
+.top3-place{font-size:12px;font-weight:700;color:var(--text2);}
 
-        .setting-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
+/* ── BLUWE AI SECTION ── */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+.feature-card{
+  padding:20px;border-radius:var(--radius);
+  background:var(--glass);border:1px solid var(--border);
+  backdrop-filter:blur(20px);transition:all 0.4s;cursor:default;
+}
+.feature-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 15px 40px rgba(108,99,255,0.2);}
+.feature-num{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-size:14px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+}
+.feature-icon{font-size:18px;margin-bottom:8px;}
+.feature-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.feature-desc{font-size:12px;color:var(--text2);line-height:1.6;}
+.bot-launch-wrap{text-align:center;margin-top:28px;}
+.bot-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 32px;border-radius:100px;
+  background:linear-gradient(135deg,#0088cc,#229ed9);
+  color:#fff;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;
+  text-decoration:none;transition:all 0.3s;border:none;cursor:pointer;
+}
+.bot-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,136,204,0.5);}
 
-        .copy-box {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(120, 120, 120, 0.1);
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: var(--text-main);
-        }
+/* ── SHAROIT PLYUS ── */
+.steps-list{display:flex;flex-direction:column;gap:10px;}
+.step-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px;border-radius:var(--radius2);
+  background:var(--bg2);border:1px solid var(--border2);transition:all 0.3s;
+}
+.step-item:hover{border-color:var(--accent);}
+.step-num{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-size:12px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.step-text{font-size:13px;color:var(--text2);line-height:1.5;}
+.step-text strong{color:var(--text);display:block;font-weight:600;margin-bottom:2px;}
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px;}
+.tip-item{
+  padding:12px;border-radius:var(--radius2);
+  background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);
+  font-size:12px;color:var(--text2);line-height:1.5;
+}
+.tip-item::before{content:'💡';display:block;font-size:18px;margin-bottom:6px;}
+.sharoit-logo{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 16px;
+  background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 25px rgba(255,255,255,0.15);
+  overflow:hidden;
+}
+.sharoit-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.start-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 36px;border-radius:100px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;
+  text-decoration:none;transition:all 0.3s;border:none;cursor:pointer;
+  box-shadow:0 8px 25px rgba(34,197,94,0.35);
+}
+.start-btn:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(34,197,94,0.5);}
 
-        .btn-copy {
-            background: var(--text-main);
-            color: var(--primary-bg);
-            border: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 900;
-        }
+/* ── DIVIDER ── */
+.divider{
+  height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  margin:10px 0;opacity:0.3;
+}
 
-        .main-content {
-            padding-top: 150px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+/* ── RATING / STARS ── */
+.rating-section{
+  text-align:center;padding:clamp(30px,5vw,60px) 20px;
+  position:relative;z-index:1;
+}
+.stars-wrap{display:flex;gap:10px;justify-content:center;margin:16px 0 8px;}
+.star{
+  font-size:clamp(28px,5vw,42px);cursor:pointer;
+  transition:all 0.2s;filter:grayscale(1)opacity(0.4);
+}
+.star:hover,.star.active{filter:none;transform:scale(1.2);}
+.rating-label{font-size:13px;color:var(--text2);min-height:20px;}
+.rating-sent{
+  display:none;padding:14px 28px;border-radius:var(--radius);
+  background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);
+  font-size:14px;font-weight:600;color:var(--green);margin-top:12px;
+}
 
-        .hero-title {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 900;
-            text-align: center;
-            letter-spacing: -2px;
-            line-height: 1;
-            margin-bottom: 30px;
-            background: linear-gradient(to bottom, var(--text-main), var(--text-dim));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+/* ── CONFETTI ── */
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;pointer-events:none;}
 
-        .btn-join-huge {
-            padding: 25px 60px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--accent-color);
-            color: var(--primary-bg);
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
-            text-transform: uppercase;
-            margin-bottom: 60px;
-        }
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  padding:24px 20px;text-align:center;
+  border-top:1px solid var(--border2);
+  background:rgba(10,10,20,0.5);
+}
+[data-theme="light"] footer{background:rgba(240,242,255,0.5);}
+.footer-logo{
+  font-size:18px;font-weight:900;
+  background:linear-gradient(135deg,#6c63ff,#a78bfa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:8px;
+}
+.footer-copy{font-size:11px;color:var(--text3);}
 
-        .image-container {
-            width: 90%;
-            max-width: 1000px;
-            height: 500px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            overflow: hidden;
-            transform: perspective(1000px) rotateX(10deg);
-            box-shadow: var(--shadow);
-            margin-bottom: 100px;
-        }
+/* ── CONTRACT BADGE ── */
+.contract-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:100px;
+  background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.3);
+  font-size:12px;font-weight:600;color:var(--accent2);margin-bottom:20px;
+}
 
-        .image-container img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+/* ── TWO COL LAYOUT ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:650px){.two-col{grid-template-columns:1fr;}}
 
-        .reg-wrapper {
-            width: 100%;
-            max-width: 550px;
-            background: var(--secondary-bg);
-            padding: 50px;
-            border-radius: 25px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow);
-            margin-bottom: 150px;
-        }
-
-        .input-block {
-            margin-bottom: 30px; 
-        }
-
-        .input-block label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        /* Raqamlar ko'rinishi uchun stil */
-        .input-block input, .input-block select {
-            width: 100%;
-            padding: 15px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--text-main);
-            border-radius: 10px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        select option {
-            background-color: #1a1a1a !important; /* Qora fon */
-            color: white !important; /* Oq raqamlar */
-        }
-
-        .input-error {
-            border: 1px solid var(--error) !important;
-            animation: shake 0.4s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 20px;
-            background: transparent;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            font-weight: 800;
-            text-transform: uppercase;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 10px;
-        }
-
-        .btn-submit:hover {
-            background: var(--text-main);
-            color: var(--primary-bg);
-        }
-
-        #statusBox {
-            margin-top: 25px;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .success-style { background: rgba(0,255,136,0.1); border: 1px solid var(--success); color: var(--success); }
-
-        .footer {
-            padding: 50px;
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.8rem;
-        }
-    </style>
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .hero-buttons{flex-direction:column;align-items:center;}
+  .btn-main,.btn-outline{width:100%;max-width:300px;text-align:center;}
+}
+</style>
 </head>
 <body>
 
-    <div class="bg-grid"><div class="bg-grid-inner"></div></div>
+<canvas id="particles"></canvas>
+<canvas id="confetti-canvas"></canvas>
 
-    <nav class="navbar">
-        <div class="logo"><strong>ALIM'S GVTX</strong></div>
-        <div class="nav-actions">
-            <button class="btn-nav" id="btn-lang" onclick="toggleLang()">RU</button>
-            <button class="btn-nav" onclick="toggleSettings()">⚙️</button>
-        </div>
-    </nav>
+<!-- ═══════════════ TOP BAR ═══════════════ -->
+<div id="topbar">
+  <div class="top-logo">GVTX</div>
+  <div class="top-controls">
+    <button class="lang-btn active" onclick="setLang('uz')">UZ</button>
+    <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="theme-btn" onclick="toggleTheme()" title="Tema">🌙</button>
+    <button class="settings-btn" onclick="openModal('settingsModal')" title="Sozlamalar">⚙️</button>
+  </div>
+</div>
 
-    <div class="settings-panel" id="settingsMenu">
-        <div class="panel-header" onclick="toggleSettings()">
-            <span id="txt-back">← Back</span>
-        </div>
-        
-        <div class="setting-card">
-            <h4 id="txt-theme-title">Interface</h4>
-            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px;" id="txt-theme-desc">Switch between light and dark modes.</p>
-            <button class="btn-submit" onclick="changeTheme()" id="txt-theme-btn">Change Theme</button>
-        </div>
+<!-- ═══════════════ SETTINGS MODAL ═══════════════ -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal-box">
+    <div class="modal-title">
+      ⚙️ <span data-t="settings_title">Sozlamalar</span>
+      <button class="modal-close" onclick="closeModal('settingsModal')">✕</button>
+    </div>
+    <div class="settings-row">
+      <span class="settings-label" data-t="settings_support">Admin bilan bog'lanish</span>
+      <a href="mailto:cekpetboy@gmail.com" class="settings-action">✉️ Email</a>
+    </div>
+    <div class="settings-row">
+      <span class="settings-label" data-t="settings_theme">Tema</span>
+      <div class="theme-toggle-row">
+        <button class="theme-option" id="darkOpt" onclick="setTheme('dark')">🌙 <span data-t="dark">To'q</span></button>
+        <button class="theme-option" id="lightOpt" onclick="setTheme('light')">☀️ <span data-t="light">Yorqin</span></button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <span class="settings-label" data-t="settings_lang">Til</span>
+      <div style="display:flex;gap:6px;">
+        <button class="lang-btn" onclick="setLang('uz')">UZ</button>
+        <button class="lang-btn" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <span class="settings-label" data-t="settings_channel">Kanal</span>
+      <a href="https://t.me/GVTX2026" target="_blank" class="settings-action">📢 Telegram</a>
+    </div>
+    <div class="settings-row">
+      <span class="settings-label" data-t="settings_discord">Discord</span>
+      <a href="https://discord.gg/7TTstEnsKT" target="_blank" class="discord-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.001.022.01.043.027.057a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Discord
+      </a>
+    </div>
+  </div>
+</div>
 
-        <div class="setting-card">
-            <h4 id="txt-ai-title">Neural Network</h4>
-            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px;" id="txt-ai-desc">Redirect to AI Assistant (ChatGPT).</p>
-            <button class="btn-submit" onclick="window.open('https://chatgpt.com', '_blank')">AI ASSISTANT</button>
-        </div>
-
-        <div class="setting-card">
-            <h4 id="txt-support-title">Support</h4>
-            <p style="font-size: 0.8rem; color: var(--text-dim);" id="txt-support-desc">If you have problems, contact us:</p>
-            <div class="copy-box">
-                <span id="supportEmail">cekpetboy@gmail.com</span>
-                <button class="btn-copy" onclick="copyEmail()" id="txt-copy">COPY</button>
-            </div>
-            <button class="btn-submit" style="margin-top: 15px;" onclick="window.location.href='mailto:cekpetboy@gmail.com'" id="txt-write">Write Email</button>
-        </div>
+<!-- ═══════════════ REGISTER MODAL ═══════════════ -->
+<div class="modal-overlay open" id="regModal">
+  <div class="modal-box">
+    <!-- Floating circles -->
+    <div class="reg-floating-circles">
+      <div class="reg-circle"></div>
+      <div class="reg-circle"></div>
+      <div class="reg-circle"></div>
+      <div class="reg-circle"></div>
+      <div class="reg-circle"></div>
     </div>
 
-    <div class="main-content">
-        <h1 class="hero-title">ALIM'S<br>GVTX ELITE</h1>
-        
-        <button class="btn-join-huge" id="btn-join" onclick="handleJoinClick()">Join Server</button>
-
-        <div class="image-container">
-            <img src="allo.png" alt="Showcase">
+    <div class="reg-content" id="regFormContent">
+      <div class="reg-logo">
+        <div class="reg-logo-circle">
+          <img src="iq.png" alt="GVTX Logo" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:36px;\'>🏆</span>'">
         </div>
+      </div>
+      <div class="reg-title" data-t="reg_title">Ro'yxatdan o'tish</div>
+      <div class="reg-sub" data-t="reg_sub">GVTX ELITE FORC X platformasiga xush kelibsiz!</div>
 
-        <div class="reg-wrapper" id="regSection">
-            <h2 class="form-title" id="txt-reg-title" style="text-align: center; margin-bottom: 30px;">Access Terminal</h2>
-            
-            <div class="input-block">
-                <label id="lbl-name">Full Name (Format: First Last)</label>
-                <input type="text" id="inpName" placeholder="Alimov Alim">
-            </div>
+      <div class="form-group">
+        <label class="form-label" data-t="reg_name">Ism va Familiya *</label>
+        <input class="form-input" id="regName" type="text" placeholder="Masalan: Jasur Toshmatov">
+        <div class="error-msg" id="regNameErr" data-t="reg_name_err">Ism va familiya kiritilmagan!</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-t="reg_bday">Tug'ilgan sana *</label>
+        <input class="form-input" id="regBday" type="date">
+        <div class="error-msg" id="regBdayErr" data-t="reg_bday_err">Tug'ilgan sana kiritilmagan!</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-t="reg_email">Email manzil *</label>
+        <input class="form-input" id="regEmail" type="email" placeholder="email@example.com">
+        <div class="error-msg" id="regEmailErr" data-t="reg_email_err">To'g'ri email kiriting!</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-t="reg_phone">Telefon raqam (ixtiyoriy)</label>
+        <input class="form-input" id="regPhone" type="tel" placeholder="+998 90 123 45 67">
+      </div>
 
-            <div class="input-block">
-                <label id="lbl-email">Secure Email</label>
-                <input type="email" id="inpEmail" placeholder="user@domain.com">
-            </div>
-
-            <div class="input-block">
-                <label id="lbl-date">Birth Date</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-                    <select id="selDay"></select>
-                    <select id="selMonth"></select>
-                    <select id="selYear"></select>
-                </div>
-            </div>
-
-            <button class="btn-submit" id="btn-complete" onclick="validateAndRegister()">Complete Registration</button>
-            <div id="statusBox"></div>
-        </div>
+      <button class="reg-btn" id="regSubmitBtn" onclick="submitReg()">
+        <span id="regBtnText" data-t="reg_btn">✅ Ro'yxatdan o'tish</span>
+      </button>
+      <div class="form-note" data-t="reg_note">* Majburiy maydonlar. Ma'lumotlar maxfiy saqlanadi.</div>
     </div>
 
-    <footer class="footer">
-        &copy; 2026 ALIM'S GVTX. ALL RIGHTS RESERVED.
-    </footer>
+    <!-- Success state (hidden initially) -->
+    <div class="reg-success" id="regSuccessContent" style="display:none;">
+      <div class="reg-success-icon">🎉</div>
+      <div class="reg-success-title" data-t="reg_success_title">Muvaffaqiyatli!</div>
+      <div class="reg-success-sub" data-t="reg_success_sub">Ro'yxatdan o'tish tasdiqlandi. Xush kelibsiz!</div>
+    </div>
+  </div>
+</div>
 
-    <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWC_jYDvWzh241tapSY7LYrI0pS9Dn0tMIZyM14Eje1UXmQoMBHzSD9HNb8v29GPvl/exec';
-        const DISCORD_LINK = 'https://discord.gg/CJYXEBp55';
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main>
 
-        let currentLang = 'EN';
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-badge"><div class="pulse-dot"></div><span data-t="hero_live">Jonli reyting har yakshanba 20:00</span></div>
+  <h1 class="hero-title">GVTX ELITE<br>FORC X</h1>
+  <p class="hero-sub" data-t="hero_sub">Eng kuchlillar arenasi. Har haftada reyting, mukofotlar va shon-sharaf!</p>
+  <div class="hero-buttons">
+    <a href="https://docs.google.com/spreadsheets/d/1LuracXG6Qnmcz9hLDHxZFbtYBHLRoV1-JlFOzvv2fEs/edit?usp=sharing" target="_blank" class="btn-main">🏆 <span data-t="hero_btn1">Lengboardni ko'rish</span></a>
+    <a href="https://t.me/GVTX2026" target="_blank" class="btn-outline">📢 <span data-t="hero_btn2">Kanalga o'tish</span></a>
+  </div>
+</div>
 
-        const dict = {
-            EN: {
-                lang: 'RU', back: '← Back', themeTitle: 'Interface', themeDesc: 'Switch light/dark modes.',
-                themeBtn: 'Toggle Theme', aiTitle: 'Neural Network', aiDesc: 'Access ChatGPT assistant.',
-                supportTitle: 'Support Service', supportDesc: 'If you find an issue, contact us at:',
-                copy: 'COPY', write: 'Write Email', join: 'Join Server', regTitle: 'Access Terminal',
-                lblName: 'Full Name (Format: First Last)', lblEmail: 'Secure Email', lblDate: 'Birth Date',
-                btnComplete: 'Complete Registration', errorName: 'Please enter valid Full Name (Example: Alim Alimov)',
-                errorEmail: 'Please enter a valid email address!', success: 'Access Granted! Redirecting to Discord...',
-                sending: 'Processing...', needReg: 'Please register first!'
-            },
-            RU: {
-                lang: 'EN', back: '← Назад', themeTitle: 'Интерфейс', themeDesc: 'Переключение темной/светлой темы.',
-                themeBtn: 'Сменить тему', aiTitle: 'Нейросеть', aiDesc: 'Перейти к помощнику ChatGPT.',
-                supportTitle: 'Служба поддержки', supportDesc: 'Если возникла проблема, напишите нам:',
-                copy: 'КОПИЯ', write: 'Написать письмо', join: 'Войти в сервер', regTitle: 'Терминал Доступа',
-                lblName: 'Имя и Фамилия (Пример: Alim Alimov)', lblEmail: 'Электронная почта', lblDate: 'Дата рождения',
-                btnComplete: 'Завершить регистрацию', errorName: 'Введите имя корректно (Пример: Alim Alimov)',
-                errorEmail: 'Введите корректный адрес почты!', success: 'Доступ разрешен! Переходим в Discord...',
-                sending: 'Обработка...', needReg: 'Сначала пройдите регистрацию!'
-            }
-        };
+<!-- ══════════════════════════════════
+     SECTION 1: LENGBOARD
+══════════════════════════════════ -->
+<section class="section" id="lengboard">
+  <div class="section-header">
+    <div class="section-tag" data-t="sec_rating">Reyting Tizimi</div>
+    <h2 class="section-title">🏆 <span data-t="sec_rating_title">GVTX ELITE FORC X — Rasmiy Reyting</span></h2>
+    <p class="section-desc" data-t="sec_rating_desc">Har yakshanba 20:00 da barcha ishtirokchilarning reytingi rasman e'lon qilinadi</p>
+  </div>
 
-        // Selectlarni to'ldirish (Yil: 2006-2011)
-        const d = document.getElementById('selDay');
-        const m = document.getElementById('selMonth');
-        const y = document.getElementById('selYear');
-        for(let i=1; i<=31; i++) d.innerHTML += `<option value="${i}">${i}</option>`;
-        for(let i=1; i<=12; i++) m.innerHTML += `<option value="${i}">${i}</option>`;
-        for(let i=2006; i<=2011; i++) y.innerHTML += `<option value="${i}">${i}</option>`;
+  <a href="https://t.me/GVTX2026" target="_blank" class="leng-notice">
+    <span>📌</span>
+    <span data-t="leng_notice">O'yinni o'ynash uchun kanalda mahkamlangan xabarga qarang →</span>
+  </a>
 
-        function toggleSettings() {
-            document.getElementById('settingsMenu').classList.toggle('open');
-        }
+  <a href="https://docs.google.com/spreadsheets/d/1LuracXG6Qnmcz9hLDHxZFbtYBHLRoV1-JlFOzvv2fEs/edit?usp=sharing" target="_blank" class="leng-img-wrap glass-card" style="text-decoration:none;">
+    <div class="leng-visual">
+      <div class="leng-trophy">🏆</div>
+      <div class="leng-game-title">LENGBOARD</div>
+      <div class="leng-sub" data-t="leng_sub">TOP-15 eng yaxshi o'yinchilar</div>
+      <div class="top15-label">📊 <span data-t="leng_table">Jadval: Email • Ism • Yosh • O'rin</span></div>
+      <br>
+      <div class="leng-open-btn">📋 <span data-t="leng_open">Lengboardni ochish</span> →</div>
+    </div>
+  </a>
 
-        function changeTheme() {
-            document.body.classList.toggle('light-theme');
-        }
+  <div style="height:24px;"></div>
 
-        function toggleLang() {
-            currentLang = currentLang === 'EN' ? 'RU' : 'EN';
-            const t = dict[currentLang];
-            document.getElementById('btn-lang').innerText = t.lang;
-            document.getElementById('txt-back').innerText = t.back;
-            document.getElementById('txt-theme-title').innerText = t.themeTitle;
-            document.getElementById('txt-theme-desc').innerText = t.themeDesc;
-            document.getElementById('txt-theme-btn').innerText = t.themeBtn;
-            document.getElementById('txt-ai-title').innerText = t.aiTitle;
-            document.getElementById('txt-ai-desc').innerText = t.aiDesc;
-            document.getElementById('txt-support-title').innerText = t.supportTitle;
-            document.getElementById('txt-support-desc').innerText = t.supportDesc;
-            document.getElementById('txt-copy').innerText = t.copy;
-            document.getElementById('txt-write').innerText = t.write;
-            document.getElementById('btn-join').innerText = t.join;
-            document.getElementById('txt-reg-title').innerText = t.regTitle;
-            document.getElementById('lbl-name').innerText = t.lblName;
-            document.getElementById('lbl-email').innerText = t.lblEmail;
-            document.getElementById('lbl-date').innerText = t.lblDate;
-            document.getElementById('btn-complete').innerText = t.btnComplete;
-        }
+  <div class="two-col">
+    <div class="glass-card">
+      <div style="font-size:15px;font-weight:700;margin-bottom:14px;">📋 <span data-t="table_info">Jadvalda ko'rsatiladi</span></div>
+      <div class="info-row"><div class="info-icon">🥇</div><div class="info-text" data-t="t_place"><strong>O'rin</strong> — Reytingdagi joylashuv</div></div>
+      <div class="info-row"><div class="info-icon">📧</div><div class="info-text" data-t="t_email"><strong>Email</strong> — Ishtirokchi manzili</div></div>
+      <div class="info-row"><div class="info-icon">👤</div><div class="info-text" data-t="t_name"><strong>Ism va Familiya</strong></div></div>
+      <div class="info-row"><div class="info-icon">🎂</div><div class="info-text" data-t="t_age"><strong>Yosh</strong> — Ishtirokchi yoshi</div></div>
+      <div class="info-row"><div class="info-icon">📅</div><div class="info-text" data-t="t_when"><strong>Har yakshanba</strong> soat 20:00 da yangilanadi</div></div>
+    </div>
 
-        function copyEmail() {
-            const email = document.getElementById('supportEmail').innerText;
-            navigator.clipboard.writeText(email);
-            const btn = document.getElementById('txt-copy');
-            const original = btn.innerText;
-            btn.innerText = 'DONE!';
-            setTimeout(() => btn.innerText = original, 2000);
-        }
+    <div class="glass-card">
+      <div style="font-size:15px;font-weight:700;margin-bottom:14px;">🏅 <span data-t="top3_title">TOP-3 Sovrinlari</span></div>
+      <div class="top3-grid">
+        <div class="top3-card"><span class="top3-medal">🥇</span><div class="top3-place" data-t="place1">1-o'rin</div></div>
+        <div class="top3-card"><span class="top3-medal">🥈</span><div class="top3-place" data-t="place2">2-o'rin</div></div>
+        <div class="top3-card"><span class="top3-medal">🥉</span><div class="top3-place" data-t="place3">3-o'rin</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:14px;line-height:1.7;" data-t="top3_desc">
+        🎁 Eksklyuziv va qimmatbaho sovg'alar online yuboriladi<br>
+        📜 Diplom email orqali pdf yoki rasm ko'rinishida yuboriladi.<br>
+        🚀 Faqat eng kuchlilargina TOP-3 ga kiradi!
+      </div>
+    </div>
+  </div>
 
-        function handleJoinClick() {
-            if (localStorage.getItem('isAuth') === 'true') {
-                window.location.href = DISCORD_LINK;
-            } else {
-                document.getElementById('regSection').scrollIntoView({behavior: 'smooth'});
-                const box = document.getElementById('statusBox');
-                box.style.display = 'block';
-                box.style.color = 'var(--error)';
-                box.innerText = dict[currentLang].needReg;
-            }
-        }
+  <div style="height:16px;"></div>
 
-        function validateAndRegister() {
-            const name = document.getElementById('inpName');
-            const email = document.getElementById('inpEmail');
-            const day = document.getElementById('selDay').value;
-            const month = document.getElementById('selMonth').value;
-            const year = document.getElementById('selYear').value;
-            const box = document.getElementById('statusBox');
-            const btn = document.getElementById('btn-complete');
-            const t = dict[currentLang];
+  <div class="glass-card">
+    <div style="font-size:15px;font-weight:700;margin-bottom:16px;">🔥 <span data-t="active_title">Faol ishtirokchilar uchun mukofotlar</span></div>
+    <div class="rewards-list">
+      <div class="reward-item">
+        <div class="reward-icon">⭐</div>
+        <div class="reward-text"><strong data-t="r1_title">3 oy aktiv</strong><span class="reward-text" data-t="r1_desc">100 ta Telegram Stars</span></div>
+      </div>
+      <div class="reward-item">
+        <div class="reward-icon">💎</div>
+        <div class="reward-text"><strong data-t="r2_title">6 oy aktiv</strong><span class="reward-text" data-t="r2_desc">Telegram Premium — 3 oyga</span></div>
+      </div>
+      <div class="reward-item">
+        <div class="reward-icon">👑</div>
+        <div class="reward-text"><strong data-t="r3_title">1 yil aktiv</strong><span class="reward-text" data-t="r3_desc">Telegram Premium 1 yil + 1000 Stars + Qimmatbaho Gift</span></div>
+      </div>
+    </div>
+    <div class="contract-badge" style="margin-top:18px;display:flex;">
+      📌 <span data-t="contract">Kontrakt muddati: 20.05.2026 — 20.05.2028</span>
+    </div>
+  </div>
+</section>
 
-            const nameRegex = /^[A-Z][a-z]+ [A-Z][a-z]+$/;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+<div class="divider" style="margin:0 20px;"></div>
 
-            if(!nameRegex.test(name.value)) {
-                name.classList.add('input-error');
-                box.style.display = 'block';
-                box.innerText = t.errorName;
-                return;
-            } else { name.classList.remove('input-error'); }
+<!-- ══════════════════════════════════
+     SECTION 2: BLUWE AI BOT
+══════════════════════════════════ -->
+<section class="section" id="bluwe">
+  <div class="section-header">
+    <div class="section-tag" data-t="sec_bot">Telegram Bot</div>
+    <h2 class="section-title">🤖 Bluwe AI</h2>
+    <p class="section-desc" data-t="sec_bot_desc">20.05.2026 dan boshlab barqaror va uzluksiz ishga tushirilgan super funksiyali bot!</p>
+  </div>
 
-            if(!emailRegex.test(email.value)) {
-                email.classList.add('input-error');
-                box.style.display = 'block';
-                box.innerText = t.errorEmail;
-                return;
-            } else { email.classList.remove('input-error'); }
+  <div style="text-align:center;margin-bottom:28px;">
+    <div style="width:90px;height:90px;border-radius:50%;margin:0 auto 14px;background:linear-gradient(135deg,#6c63ff,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 8px 30px rgba(108,99,255,0.4);animation:float 3s ease-in-out infinite;">🤖</div>
+    <div style="font-size:22px;font-weight:800;background:linear-gradient(135deg,#6c63ff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">GVTX Bluwe AI Bot</div>
+  </div>
 
-            btn.innerText = t.sending;
-            btn.disabled = true;
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-num">1</div>
+      <div class="feature-icon">🧠</div>
+      <div class="feature-title" data-t="f1_title">Support AI (AL 2)</div>
+      <div class="feature-desc" data-t="f1_desc">Aniq fanlar, dasturlash va psixologik ko'mak uchun maxsus SMART AI rejimi</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">2</div>
+      <div class="feature-icon">👤</div>
+      <div class="feature-title" data-t="f2_title">Shaxsiy Profil</div>
+      <div class="feature-desc" data-t="f2_desc">ID-raqamingiz, maqomingiz va botdagi barcha faolligingizni kuzating</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">3</div>
+      <div class="feature-icon">💎</div>
+      <div class="feature-title" data-t="f3_title">Donate Tizimi</div>
+      <div class="feature-desc" data-t="f3_desc">/donate komandasi orqali GVTX loyihalarini qo'llab-quvvatlang</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">4</div>
+      <div class="feature-icon">🛒</div>
+      <div class="feature-title" data-t="f4_title">Premium Limitlar Do'koni</div>
+      <div class="feature-desc" data-t="f4_desc">O'zingizga mos yirik limit paketlarini osongina sotib oling</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">5</div>
+      <div class="feature-icon">🎁</div>
+      <div class="feature-title" data-t="f5_title">5 Kunlik Marafon</div>
+      <div class="feature-desc" data-t="f5_desc">5 kun ketma-ket faol bo'ling va 50 Stars yutib oling! Screenshot: cekpetboy@gmail.com</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">6</div>
+      <div class="feature-icon">🎲</div>
+      <div class="feature-title" data-t="f6_title">Mini O'yinlar Zonasi</div>
+      <div class="feature-desc" data-t="f6_desc">4 xil qiziqarli va interaktiv o'yinlar — zerikkan vaqtingizda o'ynang</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">7</div>
+      <div class="feature-icon">🏆</div>
+      <div class="feature-title" data-t="f7_title">Top Reyting</div>
+      <div class="feature-desc" data-t="f7_desc">Eng ko'p do'st taklif qilgan TOP-10 lik yetakchilar ro'yxati (Leaderboard)</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">8</div>
+      <div class="feature-icon">🎭</div>
+      <div class="feature-title" data-t="f8_title">Anonim Suhbat</div>
+      <div class="feature-desc" data-t="f8_desc">Botdagi boshqa foydalanuvchilar bilan mutlaqo maxfiy suhbat</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">9</div>
+      <div class="feature-icon">⚙️</div>
+      <div class="feature-title" data-t="f9_title">Mukammal Sozlamalar</div>
+      <div class="feature-desc" data-t="f9_desc">Bot, AI rejimlari va emojilarni aynan o'z xohishingizga ko'ra boshqaring</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">10</div>
+      <div class="feature-icon">🚀</div>
+      <div class="feature-title" data-t="f10_title">Va yana ko'p xizmatlar!</div>
+      <div class="feature-desc" data-t="f10_desc">Botni sinab ko'ring va yuqori texnologiyadan zavqlaning</div>
+    </div>
+  </div>
 
-            // Ro'yxatdan o'tgan aniq vaqtni olish
-            const now = new Date();
-            const timestamp = now.toLocaleString();
+  <div class="bot-launch-wrap">
+    <a href="https://t.me/gvtxbluwebot" target="_blank" class="bot-btn">
+      🤖 <span data-t="bot_btn">Botni ishga tushirish</span>
+    </a>
+  </div>
+</section>
 
-            const formData = new FormData();
-            formData.append('name', name.value);
-            formData.append('email', email.value);
-            formData.append('birthDate', `${day}/${month}/${year}`);
-            formData.append('timestamp', timestamp); // VAQTNI YUBORISH
+<div class="divider" style="margin:0 20px;"></div>
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            }).then(() => {
-                localStorage.setItem('isAuth', 'true');
-                box.className = 'success-style';
-                box.style.display = 'block';
-                box.innerText = t.success;
-                btn.style.display = 'none';
-                setTimeout(() => { window.location.href = DISCORD_LINK; }, 2000);
-            }).catch(err => {
-                btn.disabled = false;
-                btn.innerText = t.btnComplete;
-                alert("Error connecting to server!");
-            });
-        }
-    </script>
+<!-- ══════════════════════════════════
+     SECTION 3: SHAROIT PLYUS
+══════════════════════════════════ -->
+<section class="section" id="sharoit">
+  <div class="section-header">
+    <div class="section-tag" data-t="sec_sharoit">Yaxshilik Qilish</div>
+    <div class="sharoit-logo">
+      <img src="iq.png" alt="Sharoit Plyus" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:36px;\'>♿</span>'">
+    </div>
+    <h2 class="section-title" data-t="sharoit_title">Sharoit Plyus</h2>
+    <p class="section-desc" data-t="sharoit_desc">Nogironlarga yordam beruvchi loyihani pul sarflamasdan qo'llab-quvvatlang — Microsoft Rewards orqali!</p>
+  </div>
+
+  <div class="two-col">
+    <div class="glass-card">
+      <div style="font-size:15px;font-weight:700;margin-bottom:16px;">📖 <span data-t="steps_title">Qanday qilish kerak?</span></div>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong data-t="s1">Havolani bosing</strong><span data-t="s1d">Quyidagi START tugmasini bosing</span></div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong data-t="s2">Microsoft akkauntiga kiring</strong><span data-t="s2d">Yangi akkaunt yarating yoki kirishingiz mumkin</span></div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong data-t="s3">Microsoft Rewards ni faollashtiring</strong><span data-t="s3d">✅ Ro'yxatdan o'ting</span></div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong data-t="s4">Bing qidiruvidan foydalaning</strong><span data-t="s4d">🔍 Har kuni qidiring</span></div></div>
+        <div class="step-item"><div class="step-num">5</div><div class="step-text"><strong data-t="s5">Kunlik topshiriqlarni bajaring</strong><span data-t="s5d">📋 Daily Set, viktorinalar</span></div></div>
+        <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong data-t="s6">Ball yig'ib boring</strong><span data-t="s6d">💎 Telefon va kompyuterdan</span></div></div>
+        <div class="step-item"><div class="step-num">7</div><div class="step-text"><strong data-t="s7">Sharoit Plyus ni qo'llab-quvvatlang</strong><span data-t="s7d">❤️ Ballaringizni yuboring</span></div></div>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div style="font-size:15px;font-weight:700;margin-bottom:14px;">💰 <span data-t="tips_title">Ko'proq ball to'plash uchun</span></div>
+      <div class="tips-grid" style="grid-template-columns:1fr;">
+        <div class="tip-item" data-t="tip1">Microsoft ma'lumotlarini diqqat bilan o'qing — ball topish yo'llari yozilgan</div>
+        <div class="tip-item" data-t="tip2">Bing da oddiy qidiruv bajaring — har bir qidiruv ball keltiradi</div>
+        <div class="tip-item" data-t="tip3">Telefon va kompyuterdan bir vaqtda foydalaning 📱💻</div>
+        <div class="tip-item" data-t="tip4">Har kuni kiring va faolligingizni saqlang</div>
+        <div class="tip-item" data-t="tip5">Kuniga bir necha daqiqa vaqt sarflash yetarli!</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:28px;">
+    <div style="font-size:13px;color:var(--text2);margin-bottom:16px;" data-t="sharoit_share">
+      🔰 Iloji bo'lsa bu xabarni befarq bo'lmagan odamlar bilan ulashing<br>
+      🤝 Birga yaxshilik qilaylik!
+    </div>
+    <a href="https://rewards.bing.com/welcome?rh=nMDDkSJ4FCM&ref=rafsrchae&form=ML2XE3&OCID=ML2XE3&PUBL=RewardsDO&CREA=ML2XE3" target="_blank" class="start-btn">
+      🚀 START — <span data-t="start_btn">Xayriya ballari to'plashni boshlang</span>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     RATING STARS
+══════════════════════════════════ -->
+<div class="rating-section">
+  <div class="section-tag" data-t="rate_tag">Baholash</div>
+  <div class="section-title" style="margin-top:8px;" data-t="rate_title">Saytni baholang</div>
+  <p class="section-desc" data-t="rate_desc">Sizning fikringiz juda muhim!</p>
+  <div class="stars-wrap" id="starsWrap">
+    <div class="star" data-val="1">⭐</div>
+    <div class="star" data-val="2">⭐</div>
+    <div class="star" data-val="3">⭐</div>
+    <div class="star" data-val="4">⭐</div>
+    <div class="star" data-val="5">⭐</div>
+  </div>
+  <div class="rating-label" id="ratingLabel"></div>
+  <div class="rating-sent" id="ratingSent"></div>
+</div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">Global Vortex</div>
+  <div class="footer-copy">© 2026 GVTX</div>
+</footer>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8xQRkGigz8gkPVNb7O07QOE7W0WhlRzbEYEx_bXZQq7RqfcuMdB59I5l1jgPf0cER/exec';
+
+const LANGS={
+uz:{
+  settings_title:"Sozlamalar",settings_support:"Admin bilan bog'lanish",
+  settings_theme:"Tema",dark:"To'q",light:"Yorqin",settings_lang:"Til",settings_channel:"Kanal",
+  settings_discord:"Discord",
+  reg_title:"Ro'yxatdan o'tish",reg_sub:"GVTX ELITE FORC X platformasiga xush kelibsiz!",
+  reg_name:"Ism va Familiya *",reg_bday:"Tug'ilgan sana *",reg_email:"Email manzil *",reg_phone:"Telefon raqam (ixtiyoriy)",
+  reg_btn:"✅ Ro'yxatdan o'tish",reg_note:"* Majburiy maydonlar. Ma'lumotlar maxfiy saqlanadi.",
+  reg_name_err:"Ism va familiya kiritilmagan yoki xato!",reg_bday_err:"Tug'ilgan sana kiritilmagan!",
+  reg_email_err:"To'g'ri email manzil kiriting!",
+  reg_success_title:"Muvaffaqiyatli!",reg_success_sub:"Ro'yxatdan o'tish tasdiqlandi. Xush kelibsiz!",
+  hero_live:"Jonli reyting har yakshanba 20:00",
+  hero_sub:"Eng kuchlillar arenasi. Har haftada reyting, mukofotlar va shon-sharaf!",
+  hero_btn1:"Lengboardni ko'rish",hero_btn2:"Kanalga o'tish",
+  sec_rating:"Reyting Tizimi",sec_rating_title:"GVTX ELITE FORC X — Rasmiy Reyting",
+  sec_rating_desc:"Har yakshanba 20:00 da barcha ishtirokchilarning reytingi e'lon qilinadi",
+  leng_notice:"O'yinni o'ynash uchun kanalda mahkamlangan xabarga qarang →",
+  leng_sub:"TOP-15 eng yaxshi o'yinchilar",leng_table:"Jadval: Email • Ism • Yosh • O'rin",
+  leng_open:"Lengboardni ochish",
+  table_info:"Jadvalda ko'rsatiladi",t_place:"O'rin — Reytingdagi joylashuv",
+  t_email:"Email — Ishtirokchi manzili",t_name:"Ism va Familiya",t_age:"Yosh — Ishtirokchi yoshi",
+  t_when:"Har yakshanba soat 20:00 da yangilanadi",
+  top3_title:"TOP-3 Sovrinlari",place1:"1-o'rin",place2:"2-o'rin",place3:"3-o'rin",
+  top3_desc:"🎁 Eksklyuziv sovg'alar online yuboriladi\n📜 Diplom email orqali pdf yoki rasm ko'rinishida yuboriladi.\n🚀 Faqat eng kuchlilargina!",
+  active_title:"Faol ishtirokchilar uchun mukofotlar",
+  r1_title:"3 oy aktiv",r1_desc:"100 ta Telegram Stars",
+  r2_title:"6 oy aktiv",r2_desc:"Telegram Premium — 3 oyga",
+  r3_title:"1 yil aktiv",r3_desc:"Telegram Premium 1 yil + 1000 Stars + Qimmatbaho Gift",
+  contract:"Kontrakt muddati: 20.05.2026 — 20.05.2028",
+  sec_bot:"Telegram Bot",sec_bot_desc:"20.05.2026 dan boshlab barqaror va uzluksiz ishga tushirilgan super funksiyali bot!",
+  f1_title:"Support AI (AL 2)",f1_desc:"Aniq fanlar, dasturlash va psixologik ko'mak uchun maxsus SMART AI rejimi",
+  f2_title:"Shaxsiy Profil",f2_desc:"ID-raqamingiz, maqomingiz va botdagi barcha faolligingizni kuzating",
+  f3_title:"Donate Tizimi",f3_desc:"/donate komandasi orqali GVTX loyihalarini qo'llab-quvvatlang",
+  f4_title:"Premium Limitlar Do'koni",f4_desc:"O'zingizga mos yirik limit paketlarini osongina sotib oling",
+  f5_title:"5 Kunlik Marafon",f5_desc:"5 kun ketma-ket faol bo'ling va 50 Stars yutib oling! Screenshot: cekpetboy@gmail.com",
+  f6_title:"Mini O'yinlar Zonasi",f6_desc:"4 xil qiziqarli interaktiv o'yinlar",
+  f7_title:"Top Reyting",f7_desc:"Eng ko'p do'st taklif qilgan TOP-10 yetakchilar ro'yxati",
+  f8_title:"Anonim Suhbat",f8_desc:"Botdagi boshqa foydalanuvchilar bilan maxfiy suhbat",
+  f9_title:"Mukammal Sozlamalar",f9_desc:"Bot, AI rejimlari va emojilarni o'z xohishingizga ko'ra boshqaring",
+  f10_title:"Va yana ko'p xizmatlar!",f10_desc:"Botni sinab ko'ring va zavqlaning",
+  bot_btn:"Botni ishga tushirish",
+  sec_sharoit:"Yaxshilik Qilish",sharoit_title:"Sharoit Plyus",
+  sharoit_desc:"Nogironlarga yordam beruvchi loyihani pul sarflamasdan qo'llab-quvvatlang!",
+  steps_title:"Qanday qilish kerak?",
+  s1:"Havolani bosing",s1d:"Quyidagi START tugmasini bosing",
+  s2:"Microsoft akkauntiga kiring",s2d:"Yangi akkaunt yarating yoki kirishingiz mumkin",
+  s3:"Microsoft Rewards ni faollashtiring",s3d:"✅ Ro'yxatdan o'ting",
+  s4:"Bing qidiruvidan foydalaning",s4d:"🔍 Har kuni qidiring",
+  s5:"Kunlik topshiriqlarni bajaring",s5d:"📋 Daily Set, viktorinalar",
+  s6:"Ball yig'ib boring",s6d:"💎 Telefon va kompyuterdan",
+  s7:"Sharoit Plyus ni qo'llab-quvvatlang",s7d:"❤️ Ballaringizni yuboring",
+  tips_title:"Ko'proq ball to'plash uchun",
+  tip1:"Microsoft ma'lumotlarini diqqat bilan o'qing",tip2:"Bing da oddiy qidiruv bajaring",
+  tip3:"Telefon va kompyuterdan bir vaqtda foydalaning 📱💻",
+  tip4:"Har kuni kiring va faolligingizni saqlang",tip5:"Kuniga bir necha daqiqa yetarli!",
+  sharoit_share:"🔰 Ushbu xabarni befarq bo'lmagan odamlar bilan ulashing\n🤝 Birga yaxshilik qilaylik!",
+  start_btn:"Xayriya ballari to'plashni boshlang",
+  rate_tag:"Baholash",rate_title:"Saytni baholang",rate_desc:"Sizning fikringiz juda muhim!",
+  stars:["Yomon 😞","Past 😐","O'rtacha 🙂","Yaxshi 😊","Ajoyib! 🔥"],
+  rate_sent:"Rahmat! Sizning bahongiz qabul qilindi ✅"
+},
+ru:{
+  settings_title:"Настройки",settings_support:"Связаться с админом",
+  settings_theme:"Тема",dark:"Тёмная",light:"Светлая",settings_lang:"Язык",settings_channel:"Канал",
+  settings_discord:"Discord",
+  reg_title:"Регистрация",reg_sub:"Добро пожаловать на GVTX ELITE FORC X!",
+  reg_name:"Имя и Фамилия *",reg_bday:"Дата рождения *",reg_email:"Email адрес *",reg_phone:"Номер телефона (необязательно)",
+  reg_btn:"✅ Зарегистрироваться",reg_note:"* Обязательные поля. Данные хранятся конфиденциально.",
+  reg_name_err:"Имя и фамилия не введены или ошибка!",reg_bday_err:"Дата рождения не введена!",
+  reg_email_err:"Введите правильный email!",
+  reg_success_title:"Успешно!",reg_success_sub:"Регистрация подтверждена. Добро пожаловать!",
+  hero_live:"Рейтинг публикуется каждое воскресенье в 20:00",
+  hero_sub:"Арена сильнейших. Каждую неделю рейтинг, награды и слава!",
+  hero_btn1:"Смотреть Лидерборд",hero_btn2:"Перейти в канал",
+  sec_rating:"Система Рейтинга",sec_rating_title:"GVTX ELITE FORC X — Официальный Рейтинг",
+  sec_rating_desc:"Каждое воскресенье в 20:00 рейтинг всех участников публикуется официально",
+  leng_notice:"Чтобы играть, смотрите закреплённое сообщение в канале →",
+  leng_sub:"ТОП-15 лучших игроков",leng_table:"Таблица: Email • Имя • Возраст • Место",
+  leng_open:"Открыть Лидерборд",
+  table_info:"В таблице указываются",t_place:"Место — позиция в рейтинге",
+  t_email:"Email — адрес участника",t_name:"Имя и Фамилия",t_age:"Возраст участника",
+  t_when:"Обновляется каждое воскресенье в 20:00",
+  top3_title:"Награды ТОП-3",place1:"1-е место",place2:"2-е место",place3:"3-е место",
+  top3_desc:"🎁 Эксклюзивные подарки отправляются онлайн\n📜 Диплом отправляется на email в формате pdf или изображения.\n🚀 Только сильнейшие!",
+  active_title:"Награды для активных участников",
+  r1_title:"3 месяца актив",r1_desc:"100 Telegram Stars",
+  r2_title:"6 месяцев актив",r2_desc:"Telegram Premium на 3 месяца",
+  r3_title:"1 год актив",r3_desc:"Telegram Premium 1 год + 1000 Stars + Ценный Gift",
+  contract:"Срок действия контракта: 20.05.2026 — 20.05.2028",
+  sec_bot:"Telegram Бот",sec_bot_desc:"С 20.05.2026 бот работает стабильно с новыми супер-функциями!",
+  f1_title:"Support AI (AL 2)",f1_desc:"Специальный SMART AI режим для точных наук, программирования и психологии",
+  f2_title:"Личный Профиль",f2_desc:"Следите за ID, статусом и активностью в боте",
+  f3_title:"Система Donate",f3_desc:"Поддержите проекты GVTX через команду /donate",
+  f4_title:"Магазин лимитов",f4_desc:"Покупайте пакеты лимитов Premium легко",
+  f5_title:"5-дневный Марафон",f5_desc:"Будьте активны 5 дней и выиграйте 50 Stars! Скрин: cekpetboy@gmail.com",
+  f6_title:"Зона Мини-игр",f6_desc:"4 увлекательные интерактивные игры",
+  f7_title:"Топ Рейтинг",f7_desc:"ТОП-10 лидеров по количеству приглашённых друзей",
+  f8_title:"Анонимный Чат",f8_desc:"Анонимное общение с другими пользователями бота",
+  f9_title:"Настройки",f9_desc:"Управляйте ботом, AI режимами и эмодзи",
+  f10_title:"И ещё много функций!",f10_desc:"Попробуйте бота и наслаждайтесь технологиями",
+  bot_btn:"Запустить Бот",
+  sec_sharoit:"Добро",sharoit_title:"Sharoit Plyus",
+  sharoit_desc:"Поддержите проект помощи инвалидам бесплатно — через Microsoft Rewards!",
+  steps_title:"Как это работает?",
+  s1:"Нажмите на ссылку",s1d:"Нажмите кнопку START ниже",
+  s2:"Войдите в Microsoft аккаунт",s2d:"Создайте новый или войдите",
+  s3:"Активируйте Microsoft Rewards",s3d:"✅ Зарегистрируйтесь",
+  s4:"Используйте поиск Bing",s4d:"🔍 Ищите каждый день",
+  s5:"Выполняйте ежедневные задания",s5d:"📋 Daily Set, викторины",
+  s6:"Собирайте баллы",s6d:"💎 С телефона и компьютера",
+  s7:"Поддержите Sharoit Plyus",s7d:"❤️ Отправьте баллы",
+  tips_title:"Как набрать больше баллов?",
+  tip1:"Внимательно прочитайте инструкцию Microsoft",tip2:"Делайте обычные поисковые запросы в Bing",
+  tip3:"Используйте поиск с телефона и компьютера 📱💻",
+  tip4:"Заходите каждый день и сохраняйте активность",tip5:"Это занимает всего несколько минут!",
+  sharoit_share:"🔰 Распространяйте это сообщение среди неравнодушных\n🤝 Делайте добро вместе!",
+  start_btn:"Начать собирать благотворительные баллы",
+  rate_tag:"Оценка",rate_title:"Оцените сайт",rate_desc:"Ваше мнение очень важно!",
+  stars:["Плохо 😞","Слабо 😐","Нормально 🙂","Хорошо 😊","Отлично! 🔥"],
+  rate_sent:"Спасибо! Ваша оценка принята ✅"
+},
+en:{
+  settings_title:"Settings",settings_support:"Contact Admin",
+  settings_theme:"Theme",dark:"Dark",light:"Light",settings_lang:"Language",settings_channel:"Channel",
+  settings_discord:"Discord",
+  reg_title:"Registration",reg_sub:"Welcome to GVTX ELITE FORC X!",
+  reg_name:"Full Name *",reg_bday:"Date of Birth *",reg_email:"Email address *",reg_phone:"Phone number (optional)",
+  reg_btn:"✅ Register",reg_note:"* Required fields. Your data is kept private.",
+  reg_name_err:"Name is empty or invalid!",reg_bday_err:"Date of birth is required!",
+  reg_email_err:"Please enter a valid email!",
+  reg_success_title:"Success!",reg_success_sub:"Registration confirmed. Welcome!",
+  hero_live:"Live ranking every Sunday at 20:00",
+  hero_sub:"Arena of the strongest. Weekly rankings, rewards and glory!",
+  hero_btn1:"View Leaderboard",hero_btn2:"Join Channel",
+  sec_rating:"Rating System",sec_rating_title:"GVTX ELITE FORC X — Official Rating",
+  sec_rating_desc:"Every Sunday at 20:00 the ranking of all participants is officially published",
+  leng_notice:"To play the game, check the pinned message in the channel →",
+  leng_sub:"TOP-15 best players",leng_table:"Table: Email • Name • Age • Place",
+  leng_open:"Open Leaderboard",
+  table_info:"Table shows",t_place:"Place — ranking position",
+  t_email:"Email — participant address",t_name:"Full Name",t_age:"Age of participant",
+  t_when:"Updated every Sunday at 20:00",
+  top3_title:"TOP-3 Prizes",place1:"1st place",place2:"2nd place",place3:"3rd place",
+  top3_desc:"🎁 Exclusive gifts sent online\n📜 Diploma sent to email as pdf or image.\n🚀 Only the strongest make TOP-3!",
+  active_title:"Rewards for active participants",
+  r1_title:"3 months active",r1_desc:"100 Telegram Stars",
+  r2_title:"6 months active",r2_desc:"Telegram Premium for 3 months",
+  r3_title:"1 year active",r3_desc:"Telegram Premium 1 year + 1000 Stars + Valuable Gift",
+  contract:"Contract period: 20.05.2026 — 20.05.2028",
+  sec_bot:"Telegram Bot",sec_bot_desc:"Running stably since 20.05.2026 with amazing new features!",
+  f1_title:"Support AI (AL 2)",f1_desc:"Specialized SMART AI mode for sciences, coding and psychology",
+  f2_title:"Personal Profile",f2_desc:"Track your ID, status and all activity in the bot",
+  f3_title:"Donate System",f3_desc:"Support GVTX projects via /donate command",
+  f4_title:"Premium Limits Shop",f4_desc:"Easily purchase large limit packages for yourself",
+  f5_title:"5-Day Marathon",f5_desc:"Be active 5 days in a row and win 50 Stars! Screenshot: cekpetboy@gmail.com",
+  f6_title:"Mini Games Zone",f6_desc:"4 exciting interactive games to play",
+  f7_title:"Top Rating",f7_desc:"TOP-10 leaders by most friends invited",
+  f8_title:"Anonymous Chat",f8_desc:"Completely private chats with other bot users",
+  f9_title:"Full Settings",f9_desc:"Manage bot, AI modes and emojis your way",
+  f10_title:"And many more!",f10_desc:"Try the bot and enjoy the technology",
+  bot_btn:"Launch Bot",
+  sec_sharoit:"Do Good",sharoit_title:"Sharoit Plyus",
+  sharoit_desc:"Support a project helping people with disabilities for free via Microsoft Rewards!",
+  steps_title:"How does it work?",
+  s1:"Click the link",s1d:"Press the START button below",
+  s2:"Sign in to Microsoft account",s2d:"Create new or sign in",
+  s3:"Activate Microsoft Rewards",s3d:"✅ Sign up",
+  s4:"Use Bing search",s4d:"🔍 Search every day",
+  s5:"Complete daily tasks",s5d:"📋 Daily Set, quizzes",
+  s6:"Keep earning points",s6d:"💎 From phone and PC",
+  s7:"Support Sharoit Plyus",s7d:"❤️ Send your points",
+  tips_title:"How to earn more points?",
+  tip1:"Read Microsoft info carefully for tips",tip2:"Make regular Bing search queries",
+  tip3:"Use search from phone and computer 📱💻",
+  tip4:"Visit every day to maintain activity",tip5:"It only takes a few minutes a day!",
+  sharoit_share:"🔰 Share this message with caring people\n🤝 Let's do good together!",
+  start_btn:"Start collecting charity points",
+  rate_tag:"Rating",rate_title:"Rate the site",rate_desc:"Your feedback matters!",
+  stars:["Bad 😞","Poor 😐","Average 🙂","Good 😊","Excellent! 🔥"],
+  rate_sent:"Thank you! Your rating has been accepted ✅"
+}
+};
+
+let currentLang='uz';
+function setLang(l){
+  currentLang=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active', b.textContent.trim()===l.toUpperCase());
+  });
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const k=el.getAttribute('data-t');
+    if(LANGS[l][k]!==undefined) el.textContent=LANGS[l][k];
+  });
+}
+
+let currentTheme='dark';
+function setTheme(t){
+  currentTheme=t;
+  document.documentElement.setAttribute('data-theme',t);
+  document.querySelector('.theme-btn').textContent=t==='dark'?'🌙':'☀️';
+  document.getElementById('darkOpt').classList.toggle('active',t==='dark');
+  document.getElementById('lightOpt').classList.toggle('active',t==='light');
+  localStorage.setItem('gvtx_theme',t);
+}
+function toggleTheme(){setTheme(currentTheme==='dark'?'light':'dark');}
+(()=>{const saved=localStorage.getItem('gvtx_theme');if(saved)setTheme(saved);})();
+
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o && o.id!=='regModal')closeModal(o.id);});
+});
+
+function submitReg(){
+  const name=document.getElementById('regName').value.trim();
+  const bday=document.getElementById('regBday').value;
+  const email=document.getElementById('regEmail').value.trim();
+  const phone=document.getElementById('regPhone').value.trim();
+  let ok=true;
+  const nameEl=document.getElementById('regName');
+  const nameErr=document.getElementById('regNameErr');
+  if(!name||name.split(' ').filter(Boolean).length<2){
+    nameEl.classList.add('error');nameErr.classList.add('show');ok=false;
+  } else {nameEl.classList.remove('error');nameErr.classList.remove('show');}
+  const bdayEl=document.getElementById('regBday');
+  const bdayErr=document.getElementById('regBdayErr');
+  if(!bday){
+    bdayEl.classList.add('error');bdayErr.classList.add('show');ok=false;
+  } else {bdayEl.classList.remove('error');bdayErr.classList.remove('show');}
+  const emailEl=document.getElementById('regEmail');
+  const emailErr=document.getElementById('regEmailErr');
+  const emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!email||!emailOk){
+    emailEl.classList.add('error');emailErr.classList.add('show');ok=false;
+  } else {emailEl.classList.remove('error');emailErr.classList.remove('show');}
+  if(!ok) return;
+
+  const existing=localStorage.getItem('gvtx_reg_email');
+  if(existing){
+    closeModal('regModal');return;
+  }
+
+  // Show loading dots
+  const btn=document.getElementById('regSubmitBtn');
+  const btnText=document.getElementById('regBtnText');
+  btn.disabled=true;
+  btnText.innerHTML='<div class="dots-loader"><span></span><span></span><span></span></div>';
+
+  const ts=new Date().toISOString();
+  const params=new URLSearchParams({
+    email: email,
+    sana: bday,
+    aloqa: phone || '',
+    vaqt: ts
+  });
+
+  fetch(APPS_SCRIPT_URL+'?'+params.toString(),{method:'GET',mode:'no-cors'})
+    .then(()=>{})
+    .catch(()=>{})
+    .finally(()=>{
+      localStorage.setItem('gvtx_reg_email', email);
+      localStorage.setItem('gvtx_reg_data', JSON.stringify({name,bday,email,phone,ts}));
+      
+      // Show success
+      document.getElementById('regFormContent').style.display='none';
+      const succ=document.getElementById('regSuccessContent');
+      succ.style.display='block';
+      // Apply lang
+      const l=currentLang;
+      succ.querySelector('[data-t="reg_success_title"]').textContent=LANGS[l]['reg_success_title'];
+      succ.querySelector('[data-t="reg_success_sub"]').textContent=LANGS[l]['reg_success_sub'];
+      
+      setTimeout(()=>{closeModal('regModal');}, 2500);
+      fireConfetti(5);
+    });
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  if(localStorage.getItem('gvtx_reg_email')){
+    closeModal('regModal');
+  }
+  initParticles();
+  initStars();
+});
+
+function initStars(){
+  const wrap=document.getElementById('starsWrap');
+  const label=document.getElementById('ratingLabel');
+  const sent=document.getElementById('ratingSent');
+  const stars=wrap.querySelectorAll('.star');
+  let rated=false;
+  stars.forEach((s,i)=>{
+    s.addEventListener('mouseenter',()=>{
+      if(rated)return;
+      stars.forEach((st,j)=>{st.classList.toggle('active',j<=i);});
+      label.textContent=LANGS[currentLang].stars[i];
+    });
+    s.addEventListener('mouseleave',()=>{
+      if(rated)return;
+      stars.forEach(st=>st.classList.remove('active'));
+      label.textContent='';
+    });
+    s.addEventListener('click',()=>{
+      if(rated)return;
+      rated=true;
+      stars.forEach((st,j)=>{st.classList.toggle('active',j<=i);});
+      label.textContent='';
+      sent.style.display='block';
+      sent.textContent=LANGS[currentLang].rate_sent;
+      fireConfetti(i+1);
+    });
+  });
+}
+
+function fireConfetti(rating){
+  const canvas=document.getElementById('confetti-canvas');
+  const ctx2=canvas.getContext('2d');
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+  canvas.style.display='block';
+  let particles=[];
+  let count,emojis,colors;
+  if(rating===5){count=180;emojis=['🎉','⭐','🏆','✨','💎','🔥','👑','🎊'];colors=['#6c63ff','#f59e0b','#22c55e','#ef4444','#38bdf8','#a78bfa'];}
+  else if(rating===4){count=100;emojis=['😊','⭐','✨','👍'];colors=['#6c63ff','#22c55e','#f59e0b'];}
+  else if(rating===3){count=50;emojis=['🙂','⭐'];colors=['#6c63ff','#94a3b8'];}
+  else if(rating===2){count=20;emojis=['😐'];colors=['#94a3b8'];}
+  else{count=10;emojis=['😞'];colors=['#ef4444'];}
+  for(let i=0;i<count;i++){
+    particles.push({x:Math.random()*canvas.width,y:-20,vx:(Math.random()-.5)*8,vy:Math.random()*6+2,rot:Math.random()*360,rotV:(Math.random()-.5)*8,size:Math.min(24,Math.max(14,rating*4+10)),emoji:emojis[Math.floor(Math.random()*emojis.length)],life:1,lifeD:0.006+Math.random()*0.008});
+  }
+  function tick(){
+    ctx2.clearRect(0,0,canvas.width,canvas.height);
+    particles=particles.filter(p=>p.life>0);
+    particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.12;p.rot+=p.rotV;p.life-=p.lifeD;ctx2.save();ctx2.globalAlpha=p.life;ctx2.translate(p.x,p.y);ctx2.rotate(p.rot*Math.PI/180);ctx2.font=p.size+'px serif';ctx2.fillText(p.emoji,-p.size/2,-p.size/2);ctx2.restore();});
+    if(particles.length>0)requestAnimationFrame(tick);
+    else{ctx2.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none';}
+  }
+  requestAnimationFrame(tick);
+}
+
+function initParticles(){
+  const c=document.getElementById('particles');
+  const cx=c.getContext('2d');
+  let W,H,pts=[];
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  const cols=['rgba(108,99,255,','rgba(167,139,250,','rgba(56,189,248,'];
+  for(let i=0;i<60;i++){pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+.5,col:cols[Math.floor(Math.random()*cols.length)],a:Math.random()*.5+.1});}
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle=p.col+p.a+')';cx.fill();});
+    for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;const d=Math.sqrt(dx*dx+dy*dy);if(d<120){cx.strokeStyle='rgba(108,99,255,'+(0.15*(1-d/120))+')';cx.lineWidth=.5;cx.beginPath();cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);cx.stroke();}}}
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+},{threshold:0.1});
+document.querySelectorAll('.glass-card,.feature-card,.step-item,.reward-item').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(24px)';
+  el.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+  observer.observe(el);
+});
+
+const st=document.createElement('style');
+st.textContent='@keyframes fadeUp2{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}';
+document.head.appendChild(st);
+</script>
 </body>
 </html>
